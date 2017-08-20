@@ -22,6 +22,7 @@ public:
 	inline	Matrix4x4 	operator+ (const Matrix4x4&);
 
 	inline Matrix4x4 t();
+	inline Matrix4x4 inv(); // To implement. Maybe Gauss-Jordan?
 
 	double* begin()	{return &values[0];}
 	double* end()	{return &values[16];}
