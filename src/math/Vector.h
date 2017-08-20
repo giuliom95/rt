@@ -15,12 +15,12 @@ public:
 			Vector	operator- ()		{return {-x, -y, -z};}
 	const	Vector	operator- () const	{return {-x, -y, -z};}
 
-			Vector	operator+ (double d) {return {x+d, y+d, z+d};}
-			Vector	operator- (double d) {return (*this)+(-d);}
-			Vector	operator* (double d) {return {x*d, y*d, z*d};}
-			void	operator+=(double d) {x += d; y += d; z += d;}
-			void	operator-=(double d) {*this += -d;}
-			void	operator*=(double d) {x *= d; y *= d; z *= d;}
+			Vector	operator+ (double a) {return {x+a, y+a, z+a};}
+			Vector	operator- (double a) {return (*this)+(-a);}
+			Vector	operator* (double a) {return {x*a, y*a, z*a};}
+			void	operator+=(double a) {x += a; y += a; z += a;}
+			void	operator-=(double a) {*this += -a;}
+			void	operator*=(double a) {x *= a; y *= a; z *= a;}
 
 			Vector	operator+ (const Vector& v) {return {x+v.x, y+v.y, z+v.z};}
 			Vector	operator- (const Vector& v) {return (*this)+(-v);}
@@ -30,7 +30,7 @@ public:
 
 	inline static double dot(const Vector&, const Vector&);
 };
-inline Vector operator*(double d, Vector v) {return v*d;}
+inline Vector operator*(double a, Vector v) {return v*a;}
 
 
 
