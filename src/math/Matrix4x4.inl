@@ -38,6 +38,18 @@ Matrix4x4 Matrix4x4::operator+(const Matrix4x4& m)
 	return r;
 }
 
+const Matrix4x4 Matrix4x4::operator*(const Matrix4x4& m) const
+{
+	Matrix4x4 r;
+	for (int i = 0; i < 4; ++i)
+		for (int j = 0; j < 4; ++j)
+			r(i,j) =	values[4*i+0] * m(0, j) +
+						values[4*i+1] * m(1, j) +
+						values[4*i+2] * m(2, j) +
+						values[4*i+3] * m(3, j);
+	return r;
+}
+
 Matrix4x4 Matrix4x4::t()
 {
 	return {values[0], values[4], values[8],  values[12],
