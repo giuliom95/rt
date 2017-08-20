@@ -6,7 +6,8 @@ class Matrix4x4
 	double values[16];
 public:
 
-			Matrix4x4() {for(double& v : values) v = 0;};
+			Matrix4x4() {for(double& v : values) v = 0;}
+	inline	Matrix4x4(const Matrix4x4&);
 	inline 	Matrix4x4(	double, double, double, double,
 						double, double, double, double, 
 						double, double, double, double, 
@@ -21,11 +22,13 @@ public:
 	inline const	Matrix4x4	operator* (const Matrix4x4&) const;
 	inline			Matrix4x4 	operator+ (const Matrix4x4&);
 
-	inline Matrix4x4 t();
-	inline Matrix4x4 inv(); // To implement. Maybe Gauss-Jordan?
+	inline	Matrix4x4 t();
+			Matrix4x4 inv(); // To implement. Maybe Gauss-Jordan?
 
-	double* begin()	{return &values[0];}
-	double* end()	{return &values[16];}
+			double* begin()			{return &values[0];}
+	const	double* begin()	const	{return &values[0];}
+			double* end()			{return &values[16];}
+	const 	double* end()	const	{return &values[16];}
 	
 	// Build identity matrix
 	inline static Matrix4x4 I();

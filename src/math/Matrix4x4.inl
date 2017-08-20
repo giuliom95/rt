@@ -1,3 +1,13 @@
+Matrix4x4::Matrix4x4(const Matrix4x4& m)
+{
+	auto i = 0;
+	for(auto el : m)
+	{
+		values[i] = el;
+		++i;
+	}
+}
+
 Matrix4x4::Matrix4x4(	double a00, double a01, double a02, double a03,
 						double a10, double a11, double a12, double a13, 
 						double a20, double a21, double a22, double a23, 
