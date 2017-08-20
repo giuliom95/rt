@@ -25,6 +25,9 @@ public:
 
 	double* begin()	{return &values[0];}
 	double* end()	{return &values[16];}
+	
+	// Build identity matrix
+	inline static Matrix4x4 I();
 };
 inline Matrix4x4 operator*(double, Matrix4x4);
 
@@ -73,6 +76,14 @@ Matrix4x4 Matrix4x4::t()
 			values[1], values[5], values[9],  values[13],
 			values[2], values[6], values[10], values[14],
 			values[3], values[7], values[11], values[15]};
+}
+
+Matrix4x4 Matrix4x4::I()
+{
+	return {1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1};
 }
 
 #endif //MATRIX4X4_H
