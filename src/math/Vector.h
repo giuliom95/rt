@@ -1,3 +1,6 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
 class Vector
 {
 public:
@@ -45,3 +48,5 @@ double Vector::dot(const Vector& v1, const Vector& v2)
 {
     return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
 }
+
+#endif //VECTOR_H
