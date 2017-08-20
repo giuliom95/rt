@@ -23,7 +23,7 @@ public:
 	inline			Matrix4x4 	operator+ (const Matrix4x4&);
 
 	inline	Matrix4x4 t();
-			Matrix4x4 inv(); // To implement. Maybe Gauss-Jordan?
+			Matrix4x4 inv();
 
 			double* begin()			{return &values[0];}
 	const	double* begin()	const	{return &values[0];}
