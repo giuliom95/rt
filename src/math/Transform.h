@@ -16,7 +16,7 @@ public:
 
 	inline 	Point		operator()(const Point&);
 	inline 	Vector		operator()(const Vector&);
-			Transform	operator* (const Transform&) {return {m*t.m, t.mInv*mInv};}
+			Transform	operator* (const Transform& t) {return {m*t.m, t.mInv*mInv};}
 };
 
 
