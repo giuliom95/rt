@@ -6,7 +6,7 @@ class Matrix4x4
 	double values[16];
 public:
 
-			Matrix4x4() {for(double& v : values) v = 0;}
+	inline	Matrix4x4();
 	inline	Matrix4x4(const Matrix4x4&);
 	inline 	Matrix4x4(	double, double, double, double,
 						double, double, double, double, 
@@ -29,9 +29,6 @@ public:
 	const	double* begin()	const	{return &values[0];}
 			double* end()			{return &values[16];}
 	const 	double* end()	const	{return &values[16];}
-	
-	// Build identity matrix
-	inline static Matrix4x4 I();
 };
 inline Matrix4x4 operator*(double a, Matrix4x4 m) {return m*a;}
 

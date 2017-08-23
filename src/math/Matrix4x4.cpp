@@ -25,8 +25,8 @@ void pivot(int p, Matrix4x4& left, Matrix4x4& right)
 
 Matrix4x4 Matrix4x4::inv()
 {
-	auto left = (*this);
-	auto right = Matrix4x4::I();
+	Matrix4x4 left = (*this);
+	Matrix4x4 right {};
 
 	pivot(0, left, right);
 	pivot(1, left, right);

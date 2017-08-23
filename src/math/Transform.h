@@ -9,7 +9,7 @@ class Transform
 {
 	Matrix4x4 m, mInv;
 public:
-	Transform() : m{Matrix4x4::I()}, mInv{Matrix4x4::I()} {}
+	Transform() : m{Matrix4x4()}, mInv{Matrix4x4()} {}
 	Transform(Matrix4x4 m, Matrix4x4 mInv) : m{m}, mInv{mInv} {}
 	// If we don't have the inverse matrices we need to compute it here
 	Transform(Matrix4x4 m) : m{m}, mInv{m.inv()} {}
