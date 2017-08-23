@@ -12,7 +12,7 @@ public:
 	Transform() : m{Matrix4x4()}, mInv{Matrix4x4()} {}
 	Transform(Matrix4x4 m, Matrix4x4 mInv) : m{m}, mInv{mInv} {}
 	// If we don't have the inverse matrices we need to compute it here
-	Transform(Matrix4x4 m) : m{m}, mInv{m.inv()} {}
+	Transform(Matrix4x4 m) : m{m}, mInv{inv(m)} {}
 
 	inline 	Point		operator()(const Point&);
 	inline 	Vector		operator()(const Vector&);
@@ -20,6 +20,9 @@ public:
 
 	// Builds a translation transformation
 	static Transform T(const Vector&);
+
+	// This is an inversion designed for legit transformation matrices
+	static Matrix4x4 inv(const Matrix4x4&);
 };
 
 
