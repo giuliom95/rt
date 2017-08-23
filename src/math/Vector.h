@@ -29,6 +29,7 @@ public:
 
 
 	inline static double dot(const Vector&, const Vector&);
+	inline static Vector cross(const Vector&, const Vector&);
 };
 inline Vector operator*(double a, Vector v) {return v*a;}
 
@@ -46,7 +47,13 @@ const double& Vector::operator[](unsigned idx) const
 
 double Vector::dot(const Vector& v1, const Vector& v2)
 {
-    return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
+	return v1.x*v2.x + v1.y*v2.y + v1.z*v2.z;
 }
+
+Vector Vector::cross(const Vector& v1, const Vector& v2)
+{
+	return {v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x};
+}
+
 
 #endif //VECTOR_H
