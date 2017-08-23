@@ -13,7 +13,8 @@ public:
 						double, double, double, double, 
 						double, double, double, double);
 
-
+			double& 	operator[](unsigned idx)		{return values[idx];}
+	const	double& 	operator[](unsigned idx) const	{return values[idx];}
 			double& 	operator()(unsigned i, unsigned j)			{return values[i*4+j];}
 	const	double& 	operator()(unsigned i, unsigned j) const 	{return values[i*4+j];}
 
@@ -23,7 +24,7 @@ public:
 	inline			Matrix4x4 	operator+ (const Matrix4x4&);
 
 	inline	Matrix4x4 t();
-			Matrix4x4 inv();
+			Matrix4x4 inv(); //To implement
 
 			double* begin()			{return &values[0];}
 	const	double* begin()	const	{return &values[0];}
