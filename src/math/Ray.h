@@ -2,6 +2,7 @@
 #define RAY_H
 
 #include <utility>
+#include <cmath>
 
 #include "Transform.h"
 #include "Point.h"
@@ -9,10 +10,12 @@
 
 class Ray
 {
+public:
 	Point o;
 	Vector d;
 	Transform worldToRay;
-public:
+
+	// Direction must be normalized
 	Ray(Point, Vector);
 
 	Point operator()(double t) {return o+t*d;}
