@@ -11,12 +11,15 @@ class Transform
 public:
 	Transform() : m{Matrix4x4::I()}, mInv{Matrix4x4::I()} {}
 	Transform(Matrix4x4 m, Matrix4x4 mInv) : m{m}, mInv{mInv} {}
-	//If we don't have the inverse matrices we need to compute it here.
+	// If we don't have the inverse matrices we need to compute it here
 	Transform(Matrix4x4 m) : m{m}, mInv{m.inv()} {}
 
 	inline 	Point		operator()(const Point&);
 	inline 	Vector		operator()(const Vector&);
 			Transform	operator* (const Transform& t) {return {m*t.m, t.mInv*mInv};}
+
+	// Builds a translation transformation
+	static Transform T(const Vector&);
 };
 
 
@@ -41,4 +44,4 @@ Vector Transform::operator()(const Vector& v)
 	};
 }
 
-#endif //TRANSFORM_H
+#endif // TRANSFORM_H
