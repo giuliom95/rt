@@ -17,11 +17,12 @@ public:
 	inline 	Point		operator()(const Point&);
 	inline 	Vector		operator()(const Vector&);
 			Transform	operator* (const Transform& t) {return {m*t.m, t.mInv*mInv};}
+			Transform	operator~ () {return {mInv, m};}
 
 	// Builds a translation transformation
 	static Transform T(const Vector&);
 
-	// This is an inversion designed for legit transformation matrices
+	// This is a matrix inversion designed for legit transformation matrices
 	static Matrix4x4 inv(const Matrix4x4&);
 };
 
