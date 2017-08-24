@@ -1,5 +1,5 @@
-#ifndef RT_H
-#define RT_H
+#ifndef GENERAL_H
+#define GENERAL_H
 
 #include <utility>
 #include <cmath>
@@ -10,4 +10,4 @@
 
 #define PI 3.14159265358979323846
 
-#endif // RT_H
+#endif // GENERAL_H

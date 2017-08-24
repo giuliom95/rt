@@ -20,6 +20,9 @@ public:
 	Camera(Point, Vector, double, unsigned, unsigned);
 
 	Ray generateRay(unsigned, unsigned);
+
+	unsigned getFilmResX() {return resX;}
+	unsigned getFilmResY() {return resY;}
 };
 
 #endif // CAMERA_H
