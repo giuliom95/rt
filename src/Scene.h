@@ -3,6 +3,7 @@
 #include "./general.h"
 
 #include "./math/Point.h"
+#include "./math/Transform.h"
 
 class Scene {
 	std::vector<Point> vertices;
