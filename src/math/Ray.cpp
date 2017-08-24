@@ -5,12 +5,9 @@ Ray::Ray(Point origin, Vector direction)
 	o = origin;
 	d = direction;
 
-	Vector v1, v2;
-	if (std::abs(d.x) > std::abs(d.y))
-		v1 = (1 / std::sqrt(d.x*d.x + d.z*d.z)) * Vector(-d.z, 0, d.x);
-	else
-		v1 = (1 / std::sqrt(d.y*d.y + d.z*d.z)) * Vector(0, d.z, -d.y);
-	v2 = Vector::cross(d, v1);
+	auto pair = Vector::referenceSystem(d);
+	Vector v1 = pair.first;
+	Vector v2 = pair.second;
 
 	Matrix4x4 mInv 
 	{

@@ -1,6 +1,9 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <utility>
+#include <cmath>
+
 class Vector
 {
 public:
@@ -30,6 +33,9 @@ public:
 
 	inline static double dot(const Vector&, const Vector&);
 	inline static Vector cross(const Vector&, const Vector&);
+
+	// Builds a reference system from a single vector
+	static std::pair<Vector, Vector> referenceSystem(const Vector&);
 };
 inline Vector operator*(double a, Vector v) {return v*a;}
 

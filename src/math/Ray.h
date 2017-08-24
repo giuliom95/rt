@@ -2,7 +2,6 @@
 #define RAY_H
 
 #include <utility>
-#include <cmath>
 
 #include "Transform.h"
 #include "Point.h"
