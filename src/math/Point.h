@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include "../rt.h"
+
 #include "Vector.h"
 
 class Point

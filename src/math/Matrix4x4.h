@@ -1,6 +1,8 @@
 #ifndef MATRIX4X4_H
 #define MATRIX4X4_H
 
+#include "../rt.h"
+
 class Matrix4x4
 {
 	double values[16];

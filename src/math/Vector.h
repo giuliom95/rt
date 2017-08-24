@@ -1,8 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <utility>
-#include <cmath>
+#include "../rt.h"
 
 class Vector
 {

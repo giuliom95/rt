@@ -1,7 +1,7 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include <utility>
+#include "../rt.h"
 
 #include "Transform.h"
 #include "Point.h"

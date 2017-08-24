@@ -1,10 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <vector>
-#include <string>
-#include <fstream>
-#include <iostream>
+#include "./rt.h"
 
 #include "./math/Point.h"
 
