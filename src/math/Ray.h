@@ -1,7 +1,6 @@
 #ifndef RAY_H
 #define RAY_H
-
-#include "../rt.h"
+#include "../general.h"
 
 #include "Transform.h"
 #include "Point.h"

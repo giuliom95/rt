@@ -1,7 +1,6 @@
 #ifndef MATRIX4X4_H
 #define MATRIX4X4_H
-
-#include "../rt.h"
+#include "../general.h"
 
 class Matrix4x4
 {

@@ -1,7 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-
-#include "./rt.h"
+#include "./general.h"
 
 #include "./math/Point.h"
 #include "./math/Vector.h"

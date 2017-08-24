@@ -1,7 +1,6 @@
 #ifndef VECTOR_H
 #define VECTOR_H
-
-#include "../rt.h"
+#include "../general.h"
 
 class Vector
 {

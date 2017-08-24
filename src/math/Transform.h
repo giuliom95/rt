@@ -1,7 +1,6 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
-
-#include "../rt.h"
+#include "../general.h"
 
 #include "Matrix4x4.h"
 #include "Point.h"

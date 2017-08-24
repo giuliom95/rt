@@ -1,7 +1,6 @@
 #ifndef POINT_H
 #define POINT_H
-
-#include "../rt.h"
+#include "../general.h"
 
 #include "Vector.h"
 

@@ -1,7 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
-
-#include "./rt.h"
+#include "./general.h"
 
 #include "./math/Point.h"
 
@@ -10,6 +9,8 @@ class Scene {
 public:
 	// Loads an obj file
 	Scene(std::string);
+
+	void transformWorld(const Transform&);
 };
 
 #endif
