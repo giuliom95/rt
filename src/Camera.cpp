@@ -1,6 +1,7 @@
 #include "Camera.h"
 
-Ray::Ray(Point position, Vector lookAt) : p{position}, v{lookAt}
+Camera::Camera(Point position, Vector lookAt, double fov, unsigned filmResX, unsigned filmResY) : 
+p{position}, v{lookAt}, fov{fov}, resX{filmResX}, resY{filmResY}
 {
 	auto pair = Vector::referenceSystem(v);
 	Vector v1 = pair.first;
@@ -15,4 +16,21 @@ Ray::Ray(Point position, Vector lookAt) : p{position}, v{lookAt}
 	};
 
 	c2w = Transform(mInv) * Transform::T({p.x, p.y, p.z});
+	
+	// tan of fov/2
+	double csh = std::tan(fov*PI/360);
+	ulFilm = {-csh, +csh, -1};
+	lrFilm = {+csh, -csh, -1};
+}
+
+Ray Camera::generateRay(unsigned x, unsigned y)
+{
+	Point p {
+		ulFilm.x + ((float)(x)/resX)*(lrFilm.x-ulFilm.x),
+		ulFilm.y + ((float)(y)/resY)*(lrFilm.y-ulFilm.y),
+		-1
+	};
+	Vector v = {p.x, p.y, p.z};
+
+	return {c2w(p), c2w(v)};
 }

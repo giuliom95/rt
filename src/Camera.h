@@ -12,12 +12,13 @@ class Camera
 {
 	Point p;
 	Vector v;
+	const double fov;
+	const unsigned resX, resY;
+	
 	Transform c2w;
-	double fov;
-
-	double csHeight;
+	Point ulFilm, lrFilm;
 public:
-	Camera(Point, Vector, double);
+	Camera(Point, Vector, double, unsigned, unsigned);
 
 	Ray generateRay(unsigned, unsigned);
 };
