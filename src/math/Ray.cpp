@@ -5,8 +5,6 @@ Ray::Ray(Point origin, Vector direction)
 	o = origin;
 	d = direction;
 
-	Transform translation = Transform::T({-o.x, -o.y, -o.z});
-
 	Vector v1, v2;
 	if (std::abs(d.x) > std::abs(d.y))
 		v1 = (1 / std::sqrt(d.x*d.x + d.z*d.z)) * Vector(-d.z, 0, d.x);
@@ -21,9 +19,9 @@ Ray::Ray(Point origin, Vector direction)
 		-d.x, -d.y, -d.z, 0,
 		   0,    0,    0, 1
 	};
-	Transform axisChange {Transform::inv(mInv), mInv};
 
-	worldToRay = translation*axisChange;
+	w2r = Transform::T({-o.x, -o.y, -o.z}) * Transform::inv(mInv);
+	r2w = Transform(mInv) * Transform::T({o.x, o.y, o.z});
 }
 
 

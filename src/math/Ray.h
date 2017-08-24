@@ -13,7 +13,7 @@ class Ray
 public:
 	Point o;
 	Vector d;
-	Transform worldToRay;
+	Transform w2r, r2w;
 
 	// Direction must be normalized
 	Ray(Point, Vector);
