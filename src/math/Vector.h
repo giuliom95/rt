@@ -32,6 +32,7 @@ public:
 
 	inline static double dot(const Vector&, const Vector&);
 	inline static Vector cross(const Vector&, const Vector&);
+	inline static Vector normalize(const Vector&);
 
 	// Builds a reference system from a single vector
 	static std::pair<Vector, Vector> referenceSystem(const Vector&);
@@ -60,5 +61,10 @@ Vector Vector::cross(const Vector& v1, const Vector& v2)
 	return {v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x};
 }
 
+Vector Vector::normalize(const Vector& v)
+{
+	double invLength = 1/std::sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+	return invLength*v;
+}
 
 #endif //VECTOR_H

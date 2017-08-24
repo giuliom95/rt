@@ -14,7 +14,6 @@ public:
 	Vector d;
 	Transform w2r, r2w;
 
-	// Direction must be normalized
 	Ray(Point, Vector);
 
 	Point operator()(double t) {return o+t*d;}
