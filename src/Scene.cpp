@@ -28,3 +28,9 @@ Scene::Scene(std::string path) : vertices {}
 		}
 	}
 }
+
+void Scene::transformWorld(const Transform& t)
+{
+	for(auto& v : vertices)
+		v = t(v);
+}
