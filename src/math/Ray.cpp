@@ -1,10 +1,7 @@
 #include "Ray.h"
 
-Ray::Ray(Point origin, Vector direction)
+Ray::Ray(Point origin, Vector direction) : o{origin}, d{direction}
 {
-	o = origin;
-	d = direction;
-
 	auto pair = Vector::referenceSystem(d);
 	Vector v1 = pair.first;
 	Vector v2 = pair.second;
