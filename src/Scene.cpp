@@ -20,7 +20,6 @@ Scene::Scene(std::string path) : vertices {}, trisNum{0}, vertsNum{0}
 			Point v;
 			ifs >> v.x >> v.y >> v.z;
 			tmp.push_back(v);
-			++vertsNum;
 		}
 
 		if(first == 'f')
@@ -33,6 +32,8 @@ Scene::Scene(std::string path) : vertices {}, trisNum{0}, vertsNum{0}
 			++trisNum;
 		}
 	}
+
+	vertsNum = trisNum*3;
 }
 
 int Scene::intersect(const Ray& r)
@@ -41,8 +42,9 @@ int Scene::intersect(const Ray& r)
 
 	transformWorld(r.w2r);
 	
-	for(auto i = 0; i < vertsNum; i+=3)
+	for(auto i = 0; i <= vertsNum; i+=3)
 	{
+		//std::cerr << i << "/" << vertsNum << "\n";
 		auto coords = RaySpace::origBarCoords(
 			vertices[i], vertices[i+1], vertices[i+2]);
 		auto a = coords.first;

@@ -12,7 +12,7 @@ std::vector<int> render(Camera& cam, Scene& scene)
 	{
 		Ray r = cam.generateRay(x, y);
 		pixel = scene.intersect(r);
-
+		
 		++x;
 		if(x==resX)
 		{
@@ -20,12 +20,32 @@ std::vector<int> render(Camera& cam, Scene& scene)
 			++y;
 		}
 	}
+
+	return film;
 }
 
 int main()
 {
-	Scene s {"./scene.obj"};
-	Camera c {{5, 0, 0}, {-1, 0, 0}, 40, 256, 256};
+	const int resX = 2048;
+	const int resY = 2048;
 
-	render(c, s);
+	Scene s {"./scene.obj"};
+	Camera c {{5, 5, 5}, {-0.57735, -0.57735, -0.57735}, 130, resX, resY};
+
+	auto film = render(c, s);
+
+	std::cout << "P1\n" << resX << " " << resY << "\n";
+
+	auto x = 0;
+	for(auto pixel : film)
+	{
+		std::cout << pixel << " ";
+
+		++x;
+		if(x==resX)
+		{
+			x = 0;
+			std::cout << std::endl;
+		}
+	}
 }

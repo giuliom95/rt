@@ -30,7 +30,7 @@ Ray Camera::generateRay(unsigned x, unsigned y)
 		ulFilm.y + ((float)(y)/resY)*(lrFilm.y-ulFilm.y),
 		-1
 	};
-	Vector v = {p.x, p.y, p.z};
+	Vector v = {0, 0, p.z};
 
 	return {c2w(p), c2w(v)};
 }
