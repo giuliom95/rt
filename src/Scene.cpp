@@ -37,9 +37,9 @@ vertices {}, trisNum{0}, vertsNum{0}, lastInv{}
 	vertsNum = trisNum*3;
 }
 
-int Scene::intersect(const Ray& r)
+bool Scene::intersect(const Ray& r, Vector& n)
 {
-	int ret = 255;
+	bool ret = false;
 
 	transformWorld(lastInv*r.w2r);
 	lastInv = r.r2w;
@@ -60,7 +60,11 @@ int Scene::intersect(const Ray& r)
 
 			if(t > nearestT)
 			{
-				ret = i*255/vertsNum;
+				Vector v1 = vertices[i+1]-vertices[i];
+				Vector v2 = vertices[i+2]-vertices[i];
+				Vector planeN = Vector::normalize(Vector::cross(v1,v2));
+				n = planeN;
+				ret = true;
 				nearestT = t;
 			}
 		}

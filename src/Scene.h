@@ -18,7 +18,7 @@ public:
 	// Loads an obj file
 	Scene(std::string);
 
-	int intersect(const Ray&);
+	bool intersect(const Ray&, Vector&);
 };
 
 #endif
