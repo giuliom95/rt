@@ -47,7 +47,6 @@ bool Scene::intersect(const Ray& r, Vector& n)
 	auto nearestT = 0.0;
 	for(auto i = 0; i <= vertsNum; i+=3)
 	{
-		//std::cerr << i << "/" << vertsNum << "\n";
 		auto coords = RaySpace::origBarCoords(
 			vertices[i], vertices[i+1], vertices[i+2]);
 		auto a = coords.first;
@@ -63,7 +62,8 @@ bool Scene::intersect(const Ray& r, Vector& n)
 				Vector v1 = vertices[i+1]-vertices[i];
 				Vector v2 = vertices[i+2]-vertices[i];
 				Vector planeN = Vector::normalize(Vector::cross(v1,v2));
-				n = planeN;
+				Transform trans {r.w2r.getM().t()};
+				n = trans(planeN);
 				ret = true;
 				nearestT = t;
 			}

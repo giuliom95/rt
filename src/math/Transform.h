@@ -21,6 +21,8 @@ public:
 	const			Transform	operator* (const Transform& t) const	{return {m*t.m};}
 					Transform	operator~ () {return {inv(m)};}
 
+	const Matrix4x4& getM() const {return m;}
+
 	// Builds a translation transformation
 	static Transform T(const Vector&);
 
