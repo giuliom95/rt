@@ -6,7 +6,8 @@ void Scene::transformWorld(const Transform& t)
 		v = t(v);
 }
 
-Scene::Scene(std::string path) : vertices {}, trisNum{0}, vertsNum{0}
+Scene::Scene(std::string path) : 
+vertices {}, trisNum{0}, vertsNum{0}, lastInv{}
 {
 	std::vector<Point> tmp;
 	std::ifstream ifs(path);
@@ -40,8 +41,10 @@ int Scene::intersect(const Ray& r)
 {
 	int ret = 0;
 
-	transformWorld(r.w2r);
+	transformWorld(lastInv*r.w2r);
+	lastInv = r.r2w;
 	
+	auto nearestT = 0.0;
 	for(auto i = 0; i <= vertsNum; i+=3)
 	{
 		//std::cerr << i << "/" << vertsNum << "\n";
@@ -55,11 +58,12 @@ int Scene::intersect(const Ray& r)
 			auto t = RaySpace::getT(
 				a, b, vertices[i], vertices[i+1], vertices[i+2]);
 
-			if(t > 0)
+			if(t > nearestT)
+			{
 				ret = 1;
+			}
 		}
 	}
-	transformWorld(r.r2w);
-
+	
 	return ret;
 }

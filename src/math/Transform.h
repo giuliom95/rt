@@ -17,7 +17,8 @@ public:
 	inline const 	Point		operator()(const Point&) const;
 	inline			Vector		operator()(const Vector&);
 	const inline 	Vector		operator()(const Vector&) const;
-					Transform	operator* (const Transform& t) {return {m*t.m};}
+					Transform	operator* (const Transform& t)			{return {m*t.m};}
+	const			Transform	operator* (const Transform& t) const	{return {m*t.m};}
 					Transform	operator~ () {return {inv(m)};}
 
 	// Builds a translation transformation

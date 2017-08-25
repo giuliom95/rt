@@ -26,8 +26,8 @@ std::vector<int> render(Camera& cam, Scene& scene)
 
 int main()
 {
-	const int resX = 2048;
-	const int resY = 2048;
+	const int resX = 512;
+	const int resY = 512;
 
 	Scene s {"./scene.obj"};
 	Camera c {{5, 5, 5}, {-0.57735, -0.57735, -0.57735}, 130, resX, resY};

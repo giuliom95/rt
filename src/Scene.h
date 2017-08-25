@@ -11,6 +11,8 @@ class Scene {
 	int trisNum;
 	int vertsNum;
 
+	Transform lastInv;
+
 	void transformWorld(const Transform&);
 public:
 	// Loads an obj file
