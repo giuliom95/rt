@@ -2,10 +2,9 @@
 
 std::vector<int> render(Camera& cam, Scene& scene)
 {
-	auto resX = cam.getFilmResX();
-	auto resY = cam.getFilmResY();
+	auto res = cam.getFilmRes();
 
-	std::vector<int> film(resX*resY, 0);
+	std::vector<int> film(res*res, 255);
 
 	unsigned x = 0, y = 0;
 	for(auto& pixel : film)
@@ -14,7 +13,7 @@ std::vector<int> render(Camera& cam, Scene& scene)
 		pixel = scene.intersect(r);
 		
 		++x;
-		if(x==resX)
+		if(x==res)
 		{
 			x = 0;
 			++y;
@@ -26,15 +25,15 @@ std::vector<int> render(Camera& cam, Scene& scene)
 
 int main()
 {
-	const int resX = 512;
-	const int resY = 512;
+	const int res = 215;
 
 	Scene s {"./scene.obj"};
-	Camera c {{5, 5, 5}, {-0.57735, -0.57735, -0.57735}, 130, resX, resY};
+	//Camera c {{5, 0, 5}, {-0.707107, 0, -0.707107}, {0,1,0}, 3, res};
+	Camera c {{1, 0, 5}, {0, 0, -1}, {0, 1, 0}, 3, res};
 
 	auto film = render(c, s);
 
-	std::cout << "P1\n" << resX << " " << resY << "\n";
+	std::cout << "P2\n" << res << " " << res << "\n255\n";
 
 	auto x = 0;
 	for(auto pixel : film)
@@ -42,7 +41,7 @@ int main()
 		std::cout << pixel << " ";
 
 		++x;
-		if(x==resX)
+		if(x==res)
 		{
 			x = 0;
 			std::cout << std::endl;

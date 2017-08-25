@@ -9,20 +9,16 @@
 
 class Camera
 {
-	Point p;
-	Vector v;
-	const double fov;
-	const unsigned resX, resY;
-	
-	Transform c2w;
+	const unsigned res;
+
 	Point ulFilm, lrFilm;
+	Transform c2w; // Camera to World transformation
 public:
-	Camera(Point, Vector, double, unsigned, unsigned);
+	Camera(Point, Vector, Vector, double, unsigned);
 
 	Ray generateRay(unsigned, unsigned);
 
-	unsigned getFilmResX() {return resX;}
-	unsigned getFilmResY() {return resY;}
+	unsigned getFilmRes() {return res;}
 };
 
 #endif // CAMERA_H

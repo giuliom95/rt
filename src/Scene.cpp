@@ -39,7 +39,7 @@ vertices {}, trisNum{0}, vertsNum{0}, lastInv{}
 
 int Scene::intersect(const Ray& r)
 {
-	int ret = 0;
+	int ret = 255;
 
 	transformWorld(lastInv*r.w2r);
 	lastInv = r.r2w;
@@ -60,10 +60,11 @@ int Scene::intersect(const Ray& r)
 
 			if(t > nearestT)
 			{
-				ret = 1;
+				ret = i*255/vertsNum;
+				nearestT = t;
 			}
 		}
 	}
-	
+
 	return ret;
 }
