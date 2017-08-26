@@ -85,7 +85,7 @@ bool Scene::intersect(const Ray& r, Vector& n)
 			auto t = RaySpace::getT(
 				a, b, vertices[i], vertices[i+1], vertices[i+2]);
 
-			if(t < nearestT)
+			if(t > 0 && t < nearestT)
 			{
 				/*
 				Vector v1 = vertices[i+1]-vertices[i];
