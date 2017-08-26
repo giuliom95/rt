@@ -31,11 +31,11 @@ std::vector<int> render(Camera& cam, Scene& scene)
 
 int main()
 {
-	const int res = 512;
+	const int res = 215;
 
 	Scene s {"./bunny.obj"};
 	//Camera c {{5, 0, 5}, {-0.707107, 0, -0.707107}, {0,1,0}, 3, res};
-	Camera c {{-0.02, 0.1, -1}, {0, 0, 1}, {0, 1, 0}, .1, res};
+	Camera c {{1, 0, -1}, {-0.707107, 0, 0.707107}, {0, 1, 0}, 2, res};
 
 	auto film = render(c, s);
 

@@ -8,6 +8,7 @@
 
 class Scene {
 	std::vector<Point> vertices;
+	std::vector<Vector> normals;
 	int trisNum;
 	int vertsNum;
 

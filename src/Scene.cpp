@@ -7,29 +7,57 @@ void Scene::transformWorld(const Transform& t)
 }
 
 Scene::Scene(std::string path) : 
-vertices {}, trisNum{0}, vertsNum{0}, lastInv{}
+vertices {}, normals{}, trisNum{0}, vertsNum{0}, lastInv{}
 {
-	std::vector<Point> tmp;
+	std::vector<Point> tmpVs;
+	std::vector<Vector> tmpNs;
 	std::ifstream ifs(path);
+
+	int normalsNum = 0;
 
 	while(!ifs.eof())
 	{
-		char first;
+		std::string first;
 		ifs >> first;
-		if(first == 'v')
+		if(first == "v")
 		{
 			Point v;
 			ifs >> v.x >> v.y >> v.z;
-			tmp.push_back(v);
+			tmpVs.push_back(v);
 		}
 
-		if(first == 'f')
+		if(first == "vn")
 		{
-			int i1, i2, i3;
-			ifs >> i1 >> i2 >> i3;
-			vertices.push_back(tmp[i1-1]);
-			vertices.push_back(tmp[i2-1]);
-			vertices.push_back(tmp[i3-1]);
+			Vector n;
+			ifs >> n.x >> n.y >> n.z;
+			tmpNs.push_back(Vector::normalize(n));
+			++normalsNum;
+		}
+
+		if(first == "f")
+		{
+			if(normalsNum)
+			{
+				for(auto i = 0; i < 3; ++i)
+				{
+					std::string elem;
+					ifs >> elem;
+					int sep = elem.find('/');
+					int idx = std::stoi(elem.substr(0, sep));
+					vertices.push_back(tmpVs[idx-1]);
+					
+					idx = std::stoi(elem.substr(sep+2, elem.length()-(sep+2)));
+					normals.push_back(tmpNs[idx-1]);
+				}
+			} 
+			else 
+			{
+				int ii[3];
+				ifs >> ii[0] >> ii[1] >> ii[2];
+
+				for(auto i : ii)
+					vertices.push_back(tmpVs[i-1]);
+			}
 			++trisNum;
 		}
 	}
@@ -59,11 +87,16 @@ bool Scene::intersect(const Ray& r, Vector& n)
 
 			if(t > nearestT)
 			{
+				/*
 				Vector v1 = vertices[i+1]-vertices[i];
 				Vector v2 = vertices[i+2]-vertices[i];
 				Vector planeN = Vector::normalize(Vector::cross(v1,v2));
 				Transform trans {r.w2r.getM().t()};
 				n = trans(planeN);
+				*/
+				n = (1-a-b)*normals[i] + a*normals[i+1] + b*normals[i+2];
+				n = n*-1;
+				
 				ret = true;
 				nearestT = t;
 			}
