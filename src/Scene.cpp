@@ -72,7 +72,7 @@ bool Scene::intersect(const Ray& r, Vector& n)
 	transformWorld(lastInv*r.w2r);
 	lastInv = r.r2w;
 	
-	auto nearestT = 0.0;
+	auto nearestT = std::numeric_limits<double>::infinity();
 	for(auto i = 0; i <= vertsNum; i+=3)
 	{
 		auto coords = RaySpace::origBarCoords(
@@ -85,7 +85,7 @@ bool Scene::intersect(const Ray& r, Vector& n)
 			auto t = RaySpace::getT(
 				a, b, vertices[i], vertices[i+1], vertices[i+2]);
 
-			if(t > nearestT)
+			if(t < nearestT)
 			{
 				/*
 				Vector v1 = vertices[i+1]-vertices[i];
@@ -95,8 +95,7 @@ bool Scene::intersect(const Ray& r, Vector& n)
 				n = trans(planeN);
 				*/
 				n = (1-a-b)*normals[i] + a*normals[i+1] + b*normals[i+2];
-				n = n*-1;
-				
+
 				ret = true;
 				nearestT = t;
 			}

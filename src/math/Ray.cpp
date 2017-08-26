@@ -1,21 +1,8 @@
 #include "Ray.h"
 
-Ray::Ray(Point origin, Vector direction) : o{origin}, d{direction}
+Ray::Ray(Transform r2w) : r2w{r2w}
 {
-	auto pair = Vector::referenceSystem(d);
-	Vector v1 = pair.first;
-	Vector v2 = pair.second;
-
-	Matrix4x4 mInv 
-	{
-		v1.x, v1.y, v1.z, 0,
-		v2.x, v2.y, v2.z, 0,
-		-d.x, -d.y, -d.z, 0,
-		   0,    0,    0, 1
-	};
-
-	w2r = Transform::T({-o.x, -o.y, -o.z}) * Transform::inv(mInv);
-	r2w = Transform(mInv) * Transform::T({o.x, o.y, o.z});
+	w2r = Transform(Transform::inv(r2w.getM()));
 }
 
 

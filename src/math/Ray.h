@@ -9,13 +9,11 @@
 class Ray
 {
 public:
-	Point o;
-	Vector d;
 	Transform w2r, r2w;
 
-	Ray(Point, Vector);
+	Ray(Transform);
 
-	Point operator()(double t) {return o+t*d;}
+	Point operator()(double t) {return r2w(Point(0,0,-t));}
 };
 
 // This class contains the operations useful in ray space

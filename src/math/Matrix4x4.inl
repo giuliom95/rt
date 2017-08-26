@@ -77,7 +77,7 @@ Matrix4x4 Matrix4x4::t()
 const Matrix4x4 Matrix4x4::t() const
 {
 	return {values[0], values[4], values[8],  values[12],
-		values[1], values[5], values[9],  values[13],
-		values[2], values[6], values[10], values[14],
-		values[3], values[7], values[11], values[15]};
+			values[1], values[5], values[9],  values[13],
+			values[2], values[6], values[10], values[14],
+			values[3], values[7], values[11], values[15]};
 }
