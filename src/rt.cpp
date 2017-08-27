@@ -1,44 +1,20 @@
-#include "rt.h"
+#include "general.h"
 
-std::vector<int> render(Camera& cam, Scene& scene)
-{
-	auto res = cam.getFilmRes();
+#include "Camera.h"
+#include "Scene.h"
 
-	std::vector<int> film(res*res, 255);
-	Vector light {0, 1, 0};
-
-	unsigned x = 0, y = 0;
-	for(auto& pixel : film)
-	{
-		Ray r = cam.generateRay(x, y);
-		Vector v {};
-		if(scene.intersect(r, v))
-		{
-			double w = Vector::dot(light, v);
-			pixel = (int)((w+1)*70 + 60);
-		}
-		
-		++x;
-		if(x==res)
-		{
-			x = 0;
-			++y;
-		}
-	}
-
-	return film;
-}
 
 int main()
 {
-	const int res = 256;
+	const int res = 128;
 
-	Scene s {"./bunny.obj"};
 	//Camera c {{0, 5, 0}, {0, -1, 0}, {1,0,0}, 3, res};
-	//Camera c {{1, 0, -1}, {-0.707107, 0, 0.707107}, {0, 1, 0}, 2, res};
+	//Camera c {{-3, 0, -3}, {0.707107, 0, 0.707107}, {0, 1, 0}, 2, res};
 	Camera c {{0, 0, 5}, {0, 0, -1}, {0, 1, 0}, 2, res};
+	std::ifstream input {"./bunny.obj"};
+	Scene s {input};
 
-	auto film = render(c, s);
+	auto film = s.render(c);
 
 	std::cout << "P2\n" << res << " " << res << "\n255\n";
 

@@ -2,6 +2,8 @@
 #define SCENE_H
 #include "./general.h"
 
+#include "./Camera.h"
+
 #include "./math/Point.h"
 #include "./math/Transform.h"
 #include "./math/Ray.h"
@@ -17,9 +19,10 @@ class Scene {
 	void transformWorld(const Transform&);
 public:
 	// Loads an obj file
-	Scene(std::string);
+	Scene(std::istream&);
 
 	bool intersect(const Ray&, Vector&);
+	std::vector<int> render(Camera&);
 };
 
 #endif

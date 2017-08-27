@@ -6,30 +6,29 @@ void Scene::transformWorld(const Transform& t)
 		v = t(v);
 }
 
-Scene::Scene(std::string path) : 
+Scene::Scene(std::istream& input) : 
 vertices {}, normals{}, trisNum{0}, vertsNum{0}, lastInv{}
 {
 	std::vector<Point> tmpVs;
 	std::vector<Vector> tmpNs;
-	std::ifstream ifs(path);
 
 	int normalsNum = 0;
 
-	while(!ifs.eof())
+	while(!input.eof())
 	{
 		std::string first;
-		ifs >> first;
+		input >> first;
 		if(first == "v")
 		{
 			Point v;
-			ifs >> v.x >> v.y >> v.z;
+			input >> v.x >> v.y >> v.z;
 			tmpVs.push_back(v);
 		}
 
 		if(first == "vn")
 		{
 			Vector n;
-			ifs >> n.x >> n.y >> n.z;
+			input >> n.x >> n.y >> n.z;
 			tmpNs.push_back(Vector::normalize(n));
 			++normalsNum;
 		}
@@ -41,7 +40,7 @@ vertices {}, normals{}, trisNum{0}, vertsNum{0}, lastInv{}
 				for(auto i = 0; i < 3; ++i)
 				{
 					std::string elem;
-					ifs >> elem;
+					input >> elem;
 					int sep = elem.find('/');
 					int idx = std::stoi(elem.substr(0, sep));
 					vertices.push_back(tmpVs[idx-1]);
@@ -53,7 +52,7 @@ vertices {}, normals{}, trisNum{0}, vertsNum{0}, lastInv{}
 			else 
 			{
 				int ii[3];
-				ifs >> ii[0] >> ii[1] >> ii[2];
+				input >> ii[0] >> ii[1] >> ii[2];
 
 				for(auto i : ii)
 					vertices.push_back(tmpVs[i-1]);
@@ -103,4 +102,33 @@ bool Scene::intersect(const Ray& r, Vector& n)
 	}
 
 	return ret;
+}
+
+std::vector<int> Scene::render(Camera& cam)
+{
+	auto res = cam.getFilmRes();
+
+	std::vector<int> film(res*res, 255);
+	Vector light {0, 1, 0};
+
+	unsigned x = 0, y = 0;
+	for(auto& pixel : film)
+	{
+		Ray r = cam.generateRay(x, y);
+		Vector v {};
+		if(intersect(r, v))
+		{
+			double w = Vector::dot(light, v);
+			pixel = (int)((w+1)*70 + 60);
+		}
+		
+		++x;
+		if(x==res)
+		{
+			x = 0;
+			++y;
+		}
+	}
+
+	return film;
 }
