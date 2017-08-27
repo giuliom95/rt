@@ -64,7 +64,7 @@ vertices {}, normals{}, trisNum{0}, vertsNum{0}, lastInv{}
 	vertsNum = trisNum*3;
 }
 
-bool Scene::intersect(const Ray& r, Vector& n)
+bool Scene::intersect(const Ray& r, Point& p, Vector& n)
 {
 	bool ret = false;
 
@@ -94,6 +94,7 @@ bool Scene::intersect(const Ray& r, Vector& n)
 				n = trans(planeN);
 				*/
 				n = (1-a-b)*normals[i] + a*normals[i+1] + b*normals[i+2];
+				p = r(t);
 
 				ret = true;
 				nearestT = t;
@@ -104,21 +105,20 @@ bool Scene::intersect(const Ray& r, Vector& n)
 	return ret;
 }
 
-std::vector<int> Scene::render(Camera& cam)
+std::vector<int> Scene::render(Camera& cam, Light& l)
 {
 	auto res = cam.getFilmRes();
 
 	std::vector<int> film(res*res, 255);
-	Vector light {0, 1, 0};
 
 	unsigned x = 0, y = 0;
 	for(auto& pixel : film)
 	{
 		Ray r = cam.generateRay(x, y);
-		Vector v {};
-		if(intersect(r, v))
+		Vector n {}; Point p {};
+		if(intersect(r, p, n))
 		{
-			double w = Vector::dot(light, v);
+			double w = Vector::dot(-l.d, n);
 			pixel = (int)((w+1)*70 + 60);
 		}
 		

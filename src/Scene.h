@@ -3,6 +3,7 @@
 #include "./general.h"
 
 #include "./Camera.h"
+#include "./Light.h"
 
 #include "./math/Point.h"
 #include "./math/Transform.h"
@@ -21,8 +22,8 @@ public:
 	// Loads an obj file
 	Scene(std::istream&);
 
-	bool intersect(const Ray&, Vector&);
-	std::vector<int> render(Camera&);
+	bool intersect(const Ray&, Point&, Vector&);
+	std::vector<int> render(Camera&, Light& l);
 };
 
 #endif
