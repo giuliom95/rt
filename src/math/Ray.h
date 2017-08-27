@@ -11,9 +11,11 @@ class Ray
 public:
 	Transform w2r, r2w;
 
-	Ray(Transform);
+	Ray(Transform r2w);
+	Ray(const Point&, const Vector&);
 
-	Point operator()(double t) {return r2w(Point(0,0,-t));}
+	Point operator()(double t) 			{return r2w(Point(0,0,-t));}
+	Point operator()(double t) const 	{return r2w(Point(0,0,-t));}
 };
 
 // This class contains the operations useful in ray space
