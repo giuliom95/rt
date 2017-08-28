@@ -119,6 +119,14 @@ std::vector<int> Scene::render(Camera& cam, Light& l)
 		if(intersect(r, p, n))
 		{
 			double w = Vector::dot(-l.d, n);
+			
+			// Shoots shadow ray
+			r = Ray(p+0.1*(-l.d), -l.d);
+			if(intersect(r, p, n))
+				// Does a weighted average on the color weight
+				w = (3*w-4)/12;
+			
+			// The color is ranged between 70 - 130
 			pixel = (int)((w+1)*70 + 60);
 		}
 		
