@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(Point p, Vector look, Vector up, double csh, unsigned filmRes) : res{filmRes}
+Camera::Camera(Point p, Vector look, Vector up, double fov, unsigned filmRes) : res{filmRes}
 {
 	Vector right = Vector::cross(look, up);
 
@@ -14,18 +14,21 @@ Camera::Camera(Point p, Vector look, Vector up, double csh, unsigned filmRes) : 
 
 	c2w = Transform(mInv) * Transform::T({p.x, p.y, p.z});
 
+	double csh = std::tan(fov*PI/360);
 	ulFilm = {-csh, +csh, -1};
 	lrFilm = {+csh, -csh, -1};
 }
 
 Ray Camera::generateRay(unsigned x, unsigned y)
 {
-	Transform t = Transform::T(
-		{
-			ulFilm.x + ((float)(x)/res)*(lrFilm.x-ulFilm.x),
-			ulFilm.y + ((float)(y)/res)*(lrFilm.y-ulFilm.y),
-			-1
-		}
-	);
-	return {t*c2w};
+	Point o = 
+	{
+		ulFilm.x + ((float)(x)/res)*(lrFilm.x-ulFilm.x),
+		ulFilm.y + ((float)(y)/res)*(lrFilm.y-ulFilm.y),
+		-1
+	};
+
+	Vector d = o - Point();
+
+	return {c2w(o), Vector::normalize(c2w(d))};
 }
