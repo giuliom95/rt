@@ -9,8 +9,10 @@
 #include <fstream>
 #include <iostream>
 
-#define PI 3.14159265358979323846
 
-#define Float double
+typedef double Float;
+
+static constexpr Float PI = 3.14159265358979323846;
+static constexpr Float Infinity = std::numeric_limits<Float>::infinity();
 
 #endif // GENERAL_H

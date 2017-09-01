@@ -71,7 +71,7 @@ bool Scene::intersect(const Ray& r, Point& p, Vector& n)
 	transformWorld(lastInv*r.w2r);
 	lastInv = r.r2w;
 	
-	auto nearestT = std::numeric_limits<Float>::infinity();
+	auto nearestT = Infinity;
 	for(auto i = 0; i <= vertsNum; i+=3)
 	{
 		auto coords = RaySpace::origBarCoords(
