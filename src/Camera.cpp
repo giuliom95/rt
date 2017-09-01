@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(Point p, Vector look, Vector up, double fov, unsigned filmRes) : res{filmRes}
+Camera::Camera(Point p, Vector look, Vector up, Float fov, unsigned filmRes) : res{filmRes}
 {
 	Vector right = Vector::cross(look, up);
 
@@ -14,7 +14,7 @@ Camera::Camera(Point p, Vector look, Vector up, double fov, unsigned filmRes) : 
 
 	c2w = Transform(mInv) * Transform::T({p.x, p.y, p.z});
 
-	double csh = std::tan(fov*PI/360);
+	Float csh = std::tan(fov*PI/360);
 	ulFilm = {-csh, +csh, -1};
 	lrFilm = {+csh, -csh, -1};
 }

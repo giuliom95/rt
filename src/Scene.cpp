@@ -71,7 +71,7 @@ bool Scene::intersect(const Ray& r, Point& p, Vector& n)
 	transformWorld(lastInv*r.w2r);
 	lastInv = r.r2w;
 	
-	auto nearestT = std::numeric_limits<double>::infinity();
+	auto nearestT = std::numeric_limits<Float>::infinity();
 	for(auto i = 0; i <= vertsNum; i+=3)
 	{
 		auto coords = RaySpace::origBarCoords(
@@ -118,7 +118,7 @@ std::vector<int> Scene::render(Camera& cam, Light& l)
 		Vector n {}; Point p {};
 		if(intersect(r, p, n))
 		{
-			double w = Vector::dot(-l.d, n);
+			Float w = Vector::dot(-l.d, n);
 			
 			// Shoots shadow ray
 			r = Ray(p+0.1*(-l.d), -l.d);

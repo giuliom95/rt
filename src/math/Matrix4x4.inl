@@ -14,10 +14,10 @@ Matrix4x4::Matrix4x4(const Matrix4x4& m)
 	}
 }
 
-Matrix4x4::Matrix4x4(	double a00, double a01, double a02, double a03,
-						double a10, double a11, double a12, double a13, 
-						double a20, double a21, double a22, double a23, 
-						double a30, double a31, double a32, double a33)
+Matrix4x4::Matrix4x4(	Float a00, Float a01, Float a02, Float a03,
+						Float a10, Float a11, Float a12, Float a13, 
+						Float a20, Float a21, Float a22, Float a23, 
+						Float a30, Float a31, Float a32, Float a33)
 {
 	values[0]  = a00; values[1]  = a01; values[2]  = a02; values[3]  = a03;
 	values[4]  = a10; values[5]  = a11; values[6]  = a12; values[7]  = a13;
@@ -25,7 +25,7 @@ Matrix4x4::Matrix4x4(	double a00, double a01, double a02, double a03,
 	values[12] = a30; values[13] = a31; values[14] = a32; values[15] = a33;
 }
 
-Matrix4x4 Matrix4x4::operator*(double a) 
+Matrix4x4 Matrix4x4::operator*(Float a) 
 {
 	return {a*values[0],  a*values[1],  a*values[2],  a*values[3], 
 			a*values[4],  a*values[5],  a*values[6],  a*values[7], 

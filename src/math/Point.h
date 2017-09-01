@@ -7,13 +7,13 @@
 class Point
 {
 public:
-	double x, y, z;
+	Float x, y, z;
 
 	Point() : x{0}, y{0}, z{0} {}
-	Point(double x, double y, double z) : x{x}, y{y}, z{z} {}
+	Point(Float x, Float y, Float z) : x{x}, y{y}, z{z} {}
 
-	inline			double& operator[](unsigned);
-	inline const	double& operator[](unsigned) const;
+	inline			Float& operator[](unsigned);
+	inline const	Float& operator[](unsigned) const;
 
 	Vector	operator- (const Point& p) {return {x-p.x, y-p.y, z-p.z};}
 
@@ -21,12 +21,12 @@ public:
 	Point	operator- (const Vector& v) {return (*this)+(-v);}
 };
 
-const double& Point::operator[](unsigned idx) const
+const Float& Point::operator[](unsigned idx) const
 {
 	switch(idx) {case 0: return x; case 1: return y; case 2: return z;}
 }
 
-double& Point::operator[](unsigned idx)
+Float& Point::operator[](unsigned idx)
 {
 	switch(idx) {case 0: return x; case 1: return y; case 2: return z;}
 }

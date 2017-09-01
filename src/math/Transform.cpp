@@ -8,7 +8,7 @@ Transform Transform::T(const Vector& v)
 	return {m};
 }
 
-double det3x3(const Matrix4x4& m)
+Float det3x3(const Matrix4x4& m)
 {
 	return 	m[0]*(m[5]*m[10] - m[6]*m[9])  +
 			m[1]*(m[6]*m[8]  - m[4]*m[10]) +
@@ -17,7 +17,7 @@ double det3x3(const Matrix4x4& m)
 
 Matrix4x4 Transform::inv(const Matrix4x4& m)
 {
-	double det = det3x3(m);
+	Float det = det3x3(m);
 	Matrix4x4 ret {
 		m[5]*m[10] -  m[6]*m[9],  m[2]*m[9] - m[1]*m[10], m[1]*m[6] - m[2]*m[5], 0,
 		 m[6]*m[8] - m[4]*m[10], m[0]*m[10] -  m[2]*m[8], m[2]*m[4] - m[0]*m[6], 0,

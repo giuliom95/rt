@@ -11,4 +11,6 @@
 
 #define PI 3.14159265358979323846
 
+#define Float double
+
 #endif // GENERAL_H

@@ -14,7 +14,7 @@ class Camera
 	Point ulFilm, lrFilm;
 	Transform c2w; // Camera to World transformation
 public:
-	Camera(Point, Vector, Vector, double, unsigned);
+	Camera(Point, Vector, Vector, Float, unsigned);
 
 	Ray generateRay(unsigned, unsigned);
 

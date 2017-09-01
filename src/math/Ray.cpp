@@ -23,7 +23,7 @@ Ray::Ray(const Point& o, const Vector& d)
 	w2r = Transform(Transform::inv(r2w.getM()));
 }
 
-std::pair<double, double> RaySpace::origBarCoords(Point p1, Point p2, Point p3)
+std::pair<Float, Float> RaySpace::origBarCoords(Point p1, Point p2, Point p3)
 {
 	p2.x -= p1.x; p2.y -= p1.y;
 	p3.x -= p1.x; p3.y -= p1.y;
@@ -37,7 +37,7 @@ std::pair<double, double> RaySpace::origBarCoords(Point p1, Point p2, Point p3)
 	};
 }
 
-double RaySpace::getT(double a, double b, Point p1, Point p2, Point p3)
+Float RaySpace::getT(Float a, Float b, Point p1, Point p2, Point p3)
 {
 	return -(a*(p2.z-p1.z)+b*(p3.z-p1.z)+p1.z);
 }

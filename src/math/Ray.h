@@ -14,8 +14,8 @@ public:
 	Ray(Transform r2w);
 	Ray(const Point&, const Vector&);
 
-	Point operator()(double t) 			{return r2w(Point(0,0,-t));}
-	Point operator()(double t) const 	{return r2w(Point(0,0,-t));}
+	Point operator()(Float t) 			{return r2w(Point(0,0,-t));}
+	Point operator()(Float t) const 	{return r2w(Point(0,0,-t));}
 };
 
 // This class contains the operations useful in ray space
@@ -25,10 +25,10 @@ public:
 	/* The parametric coordinates of the axis origin 
 	 * with respect of the triangle ignoring the z-values.
 	 */
-	static std::pair<double, double> origBarCoords(Point, Point, Point);
+	static std::pair<Float, Float> origBarCoords(Point, Point, Point);
 
 	// The ray parameter of the intersection
-	static double getT(double, double, Point, Point, Point);
+	static Float getT(Float, Float, Point, Point, Point);
 };
 
 #endif //RAY_H
