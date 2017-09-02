@@ -11,10 +11,10 @@ int main()
 	std::ifstream input {"./bunny.obj"};
 	Scene s {input};
 
-	//Camera c {{0, 5, 0}, {0, -1, 0}, {1,0,0}, 3, res};
-	//Camera c {{-3, 0, -3}, {0.707107, 0, 0.707107}, {0, 1, 0}, 2, res};
-	Camera c {{0, 0, 5}, {0, 0, -1}, {0, 1, 0}, 2, res};
-	Light l {Vector::normalize({1, -1, 0})};
+	//Camera c {{0, 0, 6}, {0, 0, -1}, {0,1,0}, 30, res};
+	//Camera c {{-7, 0, -7}, {0.707107, 0, 0.707107}, {0, 1, 0}, 30, res};
+	Camera c {{-8, 6.5, 7}, Vector::normalize({1, -1, -1}), {0, 1, 0}, 30, res};
+	Light l {Vector::normalize({0, -1, -1})};
 
 	auto film = s.render(c, l);
 
