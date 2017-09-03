@@ -32,6 +32,7 @@ public:
 	inline static Float dot(const Vector&, const Vector&);
 	inline static Vector cross(const Vector&, const Vector&);
 	inline static Vector normalize(const Vector&);
+	inline static Vector abs(const Vector&);
 
 	// Builds a reference system from a single vector
 	static std::pair<Vector, Vector> referenceSystem(const Vector&);
@@ -64,6 +65,11 @@ Vector Vector::normalize(const Vector& v)
 {
 	Float invLength = 1/std::sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
 	return invLength*v;
+}
+
+Vector Vector::abs(const Vector& v)
+{
+	return {std::abs(v.x), std::abs(v.y), std::abs(v.z)};
 }
 
 #endif //VECTOR_H

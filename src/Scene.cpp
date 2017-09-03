@@ -64,7 +64,7 @@ vertices {}, normals{}, trisNum{0}, vertsNum{0}, lastInv{}
 	vertsNum = trisNum*3;
 }
 
-bool Scene::intersect(const Ray& r, Point& p, Vector& n)
+bool Scene::intersect(const Ray& r, Point& p, Vector& n, Vector& err)
 {
 	bool ret = false;
 
@@ -74,27 +74,29 @@ bool Scene::intersect(const Ray& r, Point& p, Vector& n)
 	auto nearestT = Infinity;
 	for(auto i = 0; i <= vertsNum; i+=3)
 	{
-		auto coords = RaySpace::origBarCoords(
-			vertices[i], vertices[i+1], vertices[i+2]);
+		Point p0 = vertices[i];
+		Point p1 = vertices[i+1];
+		Point p2 = vertices[i+2];
+		auto coords = RaySpace::origBarCoords(p0, p1, p2);
+
 		auto a = coords.first;
 		auto b = coords.second;
+		auto c = 1 - a - b;
 
 		if(a+b <= 1 && a >= 0 && b >= 0)
 		{
-			auto t = RaySpace::getT(
-				a, b, vertices[i], vertices[i+1], vertices[i+2]);
+			auto t = RaySpace::getT(a, b, p0, p1, p2);
 
 			if(t > 0 && t < nearestT)
 			{
-				/*
-				Vector v1 = vertices[i+1]-vertices[i];
-				Vector v2 = vertices[i+2]-vertices[i];
-				Vector planeN = Vector::normalize(Vector::cross(v1,v2));
-				Transform trans {r.w2r.getM().t()};
-				n = trans(planeN);
-				*/
-				n = (1-a-b)*normals[i] + a*normals[i+1] + b*normals[i+2];
+				n = c*normals[i] + a*normals[i+1] + b*normals[i+2];
 				p = r(t);
+				
+				// Compute floating point error
+				Float xAbsSum = (std::abs(c * p0.x) + std::abs(a * p1.x) + std::abs(b * p2.x));
+				Float yAbsSum = (std::abs(c * p0.y) + std::abs(a * p1.y) + std::abs(b * p2.y));
+				Float zAbsSum = (std::abs(c * p0.z) + std::abs(a * p1.z) + std::abs(b * p2.z));
+				err = gamma(7) * Vector(xAbsSum, yAbsSum, zAbsSum);
 
 				ret = true;
 				nearestT = t;
@@ -115,14 +117,18 @@ std::vector<int> Scene::render(Camera& cam, Light& l)
 	for(auto& pixel : film)
 	{
 		Ray r = cam.generateRay(x, y);
-		Vector n {}; Point p {};
-		if(intersect(r, p, n))
+		Point p {}; Vector n {}; Vector err {};
+		if(intersect(r, p, n, err))
 		{
 			Float w = Vector::dot(-l.d, n);
 			
+			// Computes the origin of the shadow ray
+			auto offset = (Vector::dot(Vector::abs(n), err) + 0.001)*n;
+			auto newP = p+offset;
+			r = Ray(newP, -l.d);
+
 			// Shoots shadow ray
-			r = Ray(p+0.1*(-l.d), -l.d);
-			if(intersect(r, p, n))
+			if(intersect(r, p, n, err))
 				// Does a weighted average on the color weight
 				w = (3*w-4)/12;
 			

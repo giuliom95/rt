@@ -23,21 +23,21 @@ Ray::Ray(const Point& o, const Vector& d)
 	w2r = Transform(Transform::inv(r2w.getM()));
 }
 
-std::pair<Float, Float> RaySpace::origBarCoords(Point p1, Point p2, Point p3)
+std::pair<Float, Float> RaySpace::origBarCoords(Point p0, Point p1, Point p2)
 {
-	p2.x -= p1.x; p2.y -= p1.y;
-	p3.x -= p1.x; p3.y -= p1.y;
-	p1.x = -p1.x; p1.y = -p1.y;
+	p1.x -= p0.x; p1.y -= p0.y;
+	p2.x -= p0.x; p2.y -= p0.y;
+	p0.x = -p0.x; p0.y = -p0.y;
 	
-	auto det = 1/(p2.x*p3.y - p2.y*p3.x);
+	auto det = 1/(p1.x*p2.y - p1.y*p2.x);
 	return
 	{
-		det*(p1.x*p3.y - p1.y*p3.x),
-		det*(p2.x*p1.y - p2.y*p1.x)
+		det*(p0.x*p2.y - p0.y*p2.x),
+		det*(p1.x*p0.y - p1.y*p0.x)
 	};
 }
 
-Float RaySpace::getT(Float a, Float b, Point p1, Point p2, Point p3)
+Float RaySpace::getT(Float a, Float b, Point p0, Point p1, Point p2)
 {
-	return -(a*(p2.z-p1.z)+b*(p3.z-p1.z)+p1.z);
+	return -(a*(p1.z-p0.z)+b*(p2.z-p0.z)+p0.z);
 }

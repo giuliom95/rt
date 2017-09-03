@@ -22,7 +22,7 @@ public:
 	// Loads an obj file
 	Scene(std::istream&);
 
-	bool intersect(const Ray&, Point&, Vector&);
+	bool intersect(const Ray&, Point&, Vector&, Vector&);
 	std::vector<int> render(Camera&, Light& l);
 };
 
